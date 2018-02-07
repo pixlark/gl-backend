@@ -1,9 +1,8 @@
-#ifndef STRATEGEM_UTILITY_H
-#define STRATEGEM_UTILITY_H
+#ifndef _UTILITY_H
+#define _UTILITY_H
 
 #include <assert.h>
-
-#include "stdafx.h"
+#include <stdint.h>
 //#define assert(condition) if(!condition) { fprintf(stderr, "Assertion Failed! %s:%d", __FILE__, __LINE__); exit(1); }
 
 struct Vector2f;
