@@ -111,12 +111,18 @@ int main()
 				running = false;
 				break;
 			case SDL_MOUSEBUTTONDOWN: {
-				//surf.set_visibility(&renderer, false);
-				surf.set_tex_coord(&renderer, Vector2i(0, 0), Vector2i(16, 16));
+				if (event.button.button == SDL_BUTTON_LEFT) {
+					surf.set_tex_coord(&renderer, Vector2i(0, 0), Vector2i(16, 16));
+				} else if (event.button.button == SDL_BUTTON_RIGHT) {
+					surf.set_visibility(&renderer, false);
+				}
 			} break;
 			case SDL_MOUSEBUTTONUP: {
-				//surf.set_visibility(&renderer, true);
-				surf.set_tex_coord(&renderer, Vector2i(0, 16), Vector2i(16, 32));
+				if (event.button.button == SDL_BUTTON_LEFT) {
+					surf.set_tex_coord(&renderer, Vector2i(0, 16), Vector2i(16, 32));
+				} else if (event.button.button == SDL_BUTTON_RIGHT) {
+					surf.set_visibility(&renderer, true);
+				}
 			} break;
 			}
 		}
