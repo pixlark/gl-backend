@@ -36,6 +36,7 @@ namespace GL {
 		vSet get_vset(Vector2i ipos, Vector2i itpos, Vector2i itsize);
 		bool set_vertices(int index, Vector2i ipos, Vector2i itpos, Vector2i itsize);
 		bool add_vertices(Vector2i ipos, Vector2i itpos, Vector2i itsize);
+		void clear(RGBA color);
 		void render();
 	};
 };

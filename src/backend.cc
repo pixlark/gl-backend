@@ -210,15 +210,28 @@ GL::vSet GL::Context::get_vset(Vector2i ipos, Vector2i itpos, Vector2i itsize)
 
 	return set;
 }
+
 bool GL::Context::set_vertices(int index, Vector2i ipos, Vector2i itpos, Vector2i itsize) {
 	if (index >= vertices.len) return false;
 	vertices[index] = get_vset(ipos, itpos, itsize);
 	return true;
 }
+
 bool GL::Context::add_vertices(Vector2i ipos, Vector2i itpos, Vector2i itsize) {
 	vertices.push(get_vset(ipos, itpos, itsize));
 	return true;
 }
+
+void GL::Context::clear(RGBA color)
+{
+	glClearColor(
+		color.r / 256.0,
+		color.g / 256.0,
+		color.b / 256.0,
+		color.a / 256.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
 void GL::Context::render()
 {
 	for (int i = 0; i < vertices.len; i++) {

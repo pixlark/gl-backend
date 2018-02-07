@@ -20,12 +20,7 @@ struct Renderer {
 	void clear(RGBA color)
 	{
 		if (!changed) return;
-		glClearColor(
-			color.r / 256.0,
-			color.g / 256.0,
-			color.b / 256.0,
-			color.a / 256.0);
-		glClear(GL_COLOR_BUFFER_BIT);
+		context.clear(color);
 	}
 	void render()
 	{
