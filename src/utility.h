@@ -50,6 +50,7 @@ struct List {
 	void dealloc();
 	List<T> copy();
 	void push(T p);
+	void cat(T * p, int size, int offset = 0);
 	T pop();
 	T& operator[](int indice);
 	int remove(int indice);
@@ -92,6 +93,21 @@ void List<T>::push(T p)
 		_grow();
 	}
 	arr[len++] = p;
+}
+
+template <typename T>
+void List<T>::cat(T * p, int size, int offset)
+{
+	for (int i = 0; i < offset; i++) {
+		if (len == 0) break;
+		pop();
+	}
+	while (len + size >= len_max) {
+		_grow();
+	}
+	for (int i = 0; i < size; i++) {
+		arr[len++] = p[i];
+	}
 }
 
 template <typename T>
@@ -149,5 +165,8 @@ void List<T>::_shrink()
 	len_max /= 2;
 	arr = new_arr;
 }
+
+void os_path(char * path, int len);
+List<char> get_exe_dir();
 
 #endif
