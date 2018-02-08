@@ -4,6 +4,14 @@ This is a basic game framework I'm writing for use in my own games. It
 interacts directly with OpenGL using GLEW and renders user-defined
 Surfaces from a texture atlas.
 
+### Building
+
+SDL, GLEW, and stb_image are the dependencies. The Makefile takes care
+of building on Windows for MinGW. Anywhere else and you have to figure
+it out for yourself.
+
+The Makefile also builds the example program.
+
 ### Use
 
 For an example program, see `src\example\example.cc`
