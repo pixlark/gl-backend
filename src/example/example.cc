@@ -101,7 +101,7 @@ int main()
 		}
 		if (delta_time < 1.0 / 60.0) {
 			// Lock to 60
-			SDL_Delay(((1.0 / 60.0) - delta_time) * 1000);
+			//SDL_Delay(((1.0 / 60.0) - delta_time) * 1000);
 		}
 	}
 	return 0;
