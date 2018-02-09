@@ -1,0 +1,15 @@
+* The Issue
+OpenGL is retained. So if we want an immediate mode API, we have to
+translate our immediate-mode model into a retained-mode model.
+
+* Rebuild Vertices Every Frame
+** Pros
+- Simplicity
+- Better performance on the CPU
+- Performance would scale directly with surface count
+** Cons
+- Little room for optimization
+* Manage Vertices Dynamically
+** Pros
+- Better performance on the GPU
+- 
