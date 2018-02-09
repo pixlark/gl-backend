@@ -75,7 +75,10 @@ int main()
 					mario.small = true;
 				} else if (event.button.button == SDL_BUTTON_RIGHT) {
 					mario.visible = false;
-				} else if (event.button.button == SDL_BUTTON_MIDDLE) {
+				}
+			} break;
+			case SDL_KEYDOWN: {
+				if (event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
 					mario.scale = Vector2f(2, 1);
 				}
 			} break;
@@ -84,7 +87,10 @@ int main()
 					mario.small = false;
 				} else if (event.button.button == SDL_BUTTON_RIGHT) {
 					mario.visible = true;
-				} else if (event.button.button == SDL_BUTTON_MIDDLE) {
+				}
+			} break;
+			case SDL_KEYUP: {
+				if (event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
 					mario.scale = Vector2f(1, 1);
 				}
 			} break;
