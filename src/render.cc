@@ -1,7 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-#include "renderer.h"
+#include "render.h"
 
 int Render::init(SDL_Window * window, char * atlas_path, Vector2i base_res, float res_scale)
 {

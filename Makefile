@@ -2,8 +2,8 @@
   inclusions in header files so that the user doesn't need to have \
   SDL and GLFW development libraries
 # Independent
-src=src/utility.cc src/backend.cc src/renderer.cc
-obj=utility.o      backend.o      renderer.o
+src=src/utility.cc src/backend.cc src/render.cc
+obj=    utility.o      backend.o      render.o
 comp_opts=-std=c++11 -Wno-write-strings
 link_opts=-o bin/render.dll
 dyn_libs=-lSDL2 -lglew32 -lopengl32

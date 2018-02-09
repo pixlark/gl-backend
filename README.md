@@ -1,8 +1,8 @@
 ## GL Backend
 
 This is a basic game framework I'm writing for use in my own games. It
-interacts directly with OpenGL using GLEW and renders user-defined
-Surfaces from a texture atlas.
+interacts directly with OpenGL using GLEW and renders by very simply
+reconstructing the required vertices every frame.
 
 ### Building
 
@@ -16,7 +16,7 @@ The Makefile also builds the example program.
 
 For an example program, see `src\example\example.cc`
 
-First, include the headers `utility.h` and `renderer.h`. These are
+First, include the headers `utility.h` and `render.h`. These are
 both required.
 
 Currently, the framework is dependent on SDL for everything but
@@ -31,34 +31,36 @@ SDL_Window * window = SDL_CreateWindow("This is how you initialize.",
 	1920, 1080, SDL_WINDOW_SHOWN|SDL_WINDOW_OPENGL);
 ```
 
-Next, you need to create a Renderer object and pass it a path to your
-texture atlas in PNG format.
+Next, you need to initialize the Render system by passing it your
+SDL_Window, a path to your texture atlas, a Vector2i containing your
+resolution, and a float representing the resolution scale.
 
 ```
-Render::Renderer renderer;
-renderer.init(window, "atlas.png", Vector2i(1920, 1080), 1);
+Render::init(window, "atlas.png", Vector2i(1920, 1080), 1);
 ```
 
-Now OpenGL is initialized and will render to your window. But to
-render something, you first need to register a Surface. You initialize
-a Surface by passing it the renderer it will be registered to, the
-position on the screen, the position of the texture in the atlas, and
-the size of the texture in the atlas.
+Then in your main loop, you need to first clear your screen:
 
 ```
-Render::Surface surface;
-surface.init(&renderer, Vector2i(0, 0), Vector2i(0, 0), Vector2i(32, 32));
+Render::clear(RGBA(0, 0, 0, 255));
 ```
 
-Finally, in your main loop, you render by calling these four
-functions:
+Then, render any textures you want to appear on the screen. You pass
+in the screen position, the texture position in the atlas, the size of
+the texture, and the scaling that you want applied to the texture when
+it is rendered.
 
 ```
-renderer.clear(RGBA(0, 0, 0, 255)); // To clear the screen to black
-renderer.render();                  // To render all registered surfaces
-renderer.swap(window);              // To swap the render buffers
-renderer.end_frame();               // To notify the renderer that the frame has ended
+Render::render(
+	Vector2i(30, 30),
+	Vector2i(0, 0), 
+	Vector2i(32, 32), 
+	Vector2f(1, 1));
 ```
 
-That's all there is to it. If you're curious to see a basic example,
-again there is one at `src/example/example.cc`.
+Finally, this will upload your new vertices and texture coordinates to
+the GPU and swap the buffers.
+
+```
+Render::swap(window);
+```

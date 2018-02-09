@@ -3,7 +3,7 @@
 #include <math.h>
 
 #include "../utility.h"
-#include "../renderer.h"
+#include "../render.h"
 
 float delta_time = 0.0167;
 
