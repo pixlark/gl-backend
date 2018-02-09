@@ -46,13 +46,12 @@ int main()
 		base_res.x * res_scale, base_res.y * res_scale,
 		SDL_WINDOW_SHOWN|SDL_WINDOW_OPENGL);
 
-	Render::Renderer renderer;
 	{
 		List<char> exe_path = get_exe_dir();
 		exe_path.cat("..\\atlas.png", 13, 1);
 		printf("Loading atlas from %s\n", exe_path.arr);
 	
-		renderer.init(window, exe_path.arr, base_res, res_scale);
+		Render::init(window, exe_path.arr, base_res, res_scale);
 
 		exe_path.dealloc();
 	}
@@ -107,11 +106,11 @@ int main()
 		}
 		
 		// Rendering
-		renderer.clear(RGBA(0, 0, 0, 0xFF));
+		Render::clear(RGBA(0, 0, 0, 0xFF));
 		if (mario.visible) {
-			renderer.render(mario.screen_pos, mario.tex_pos, mario.tex_size);
+			Render::render(mario.screen_pos, mario.tex_pos, mario.tex_size);
 		}
-		renderer.swap(window);
+		Render::swap(window);
 		
 		// Manage framerate
 		{

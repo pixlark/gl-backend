@@ -1,5 +1,5 @@
 #include "backend.h"
-
+x
 void gl_shader_error(GLuint shader, char * section)
 {
 	printf("OPENGL SHADER ERROR (%s):\n", section);
