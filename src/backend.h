@@ -33,9 +33,9 @@ namespace GL {
 		int init(SDL_Window * window, Texture * atlas, Vector2i base_res, float res_scale);
 		void upload_vertices(int count);
 		Vector2f normalize_position(Vector2i pos);
-		vSet get_vset(Vector2i ipos, Vector2i itpos, Vector2i itsize);
-		bool set_vertices(int index, Vector2i ipos, Vector2i itpos, Vector2i itsize);
-		bool add_vertices(Vector2i ipos, Vector2i itpos, Vector2i itsize);
+		vSet get_vset(Vector2i ipos, Vector2i itpos, Vector2i itsize, Vector2f scale);
+		bool set_vertices(int index, Vector2i ipos, Vector2i itpos, Vector2i itsize, Vector2f scale);
+		bool add_vertices(Vector2i ipos, Vector2i itpos, Vector2i itsize, Vector2f scale);
 		void clear(RGBA color);
 		void render(int count);
 	};

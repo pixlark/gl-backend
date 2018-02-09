@@ -17,10 +17,10 @@ void Render::clear(RGBA color)
 	context.clear(color);
 }
 
-void Render::render(Vector2i pos, Vector2i tex_pos, Vector2i tex_size)
+void Render::render(Vector2i pos, Vector2i tex_pos, Vector2i tex_size, Vector2f scale)
 {
-	if (!context.set_vertices(vertice_index++, pos, tex_pos, tex_size)) {
-		context.add_vertices(pos, tex_pos, tex_size);
+	if (!context.set_vertices(vertice_index++, pos, tex_pos, tex_size, scale)) {
+		context.add_vertices(pos, tex_pos, tex_size, scale);
 	}
 }
 

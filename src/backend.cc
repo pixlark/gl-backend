@@ -1,5 +1,5 @@
 #include "backend.h"
-x
+
 void gl_shader_error(GLuint shader, char * section)
 {
 	printf("OPENGL SHADER ERROR (%s):\n", section);
@@ -171,15 +171,15 @@ void GL::Context::upload_vertices(int count)
 Vector2f GL::Context::normalize_position(Vector2i pos)
 {
 	return Vector2f(
-		((float) (pos.x * res_scale * 2) / (base_res.x * res_scale)) - 1.0,
+		 ((float) (pos.x * res_scale * 2) / (base_res.x * res_scale)) - 1.0,
 		-((float) (pos.y * res_scale * 2) / (base_res.y * res_scale)) + 1.0);
 }
-GL::vSet GL::Context::get_vset(Vector2i ipos, Vector2i itpos, Vector2i itsize)
+GL::vSet GL::Context::get_vset(Vector2i ipos, Vector2i itpos, Vector2i itsize, Vector2f scale)
 {
 	Vector2f pos = normalize_position(ipos);
 	Vector2f size(
-		((float) itsize.x * 2) / base_res.x,
-		((float) itsize.y * 2) / base_res.y);
+		((float) itsize.x * 2 * scale.x) / base_res.x,
+		((float) itsize.y * 2 * scale.y) / base_res.y);
 	Vector2f tpos(
 		(float) itpos.x / atlas_size,
 		(float) itpos.y / atlas_size);
@@ -211,14 +211,14 @@ GL::vSet GL::Context::get_vset(Vector2i ipos, Vector2i itpos, Vector2i itsize)
 	return set;
 }
 
-bool GL::Context::set_vertices(int index, Vector2i ipos, Vector2i itpos, Vector2i itsize) {
+bool GL::Context::set_vertices(int index, Vector2i ipos, Vector2i itpos, Vector2i itsize, Vector2f scale) {
 	if (index >= vertices.len) return false;
-	vertices[index] = get_vset(ipos, itpos, itsize);
+	vertices[index] = get_vset(ipos, itpos, itsize, scale);
 	return true;
 }
 
-bool GL::Context::add_vertices(Vector2i ipos, Vector2i itpos, Vector2i itsize) {
-	vertices.push(get_vset(ipos, itpos, itsize));
+bool GL::Context::add_vertices(Vector2i ipos, Vector2i itpos, Vector2i itsize, Vector2f scale) {
+	vertices.push(get_vset(ipos, itpos, itsize, scale));
 	return true;
 }
 

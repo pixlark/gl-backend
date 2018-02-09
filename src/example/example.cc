@@ -16,6 +16,7 @@ struct Mario {
 	// Positioning and Textures
 	Vector2f real_pos;
 	Vector2i screen_pos;
+	Vector2f scale;
 	Vector2i tex_pos;
 	Vector2i tex_size;
 	// Flags
@@ -29,6 +30,7 @@ struct Mario {
 	{
 		real_pos   = Vector2f(0, 0);
 		screen_pos = Vector2i(0, 0);
+		scale      = Vector2f(1, 1);
 		small = false;
 		visible = true;
 		anim_frame = 0;
@@ -73,6 +75,8 @@ int main()
 					mario.small = true;
 				} else if (event.button.button == SDL_BUTTON_RIGHT) {
 					mario.visible = false;
+				} else if (event.button.button == SDL_BUTTON_MIDDLE) {
+					mario.scale = Vector2f(2, 1);
 				}
 			} break;
 			case SDL_MOUSEBUTTONUP: {
@@ -80,6 +84,8 @@ int main()
 					mario.small = false;
 				} else if (event.button.button == SDL_BUTTON_RIGHT) {
 					mario.visible = true;
+				} else if (event.button.button == SDL_BUTTON_MIDDLE) {
+					mario.scale = Vector2f(1, 1);
 				}
 			} break;
 			}
@@ -108,7 +114,7 @@ int main()
 		// Rendering
 		Render::clear(RGBA(0, 0, 0, 0xFF));
 		if (mario.visible) {
-			Render::render(mario.screen_pos, mario.tex_pos, mario.tex_size);
+			Render::render(mario.screen_pos, mario.tex_pos, mario.tex_size, mario.scale);
 		}
 		Render::swap(window);
 		
