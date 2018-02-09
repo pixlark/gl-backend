@@ -164,16 +164,19 @@ int GL::Context::init(SDL_Window * window, Texture * atlas, Vector2i base_res, f
 
 	return 0;
 }
+
 void GL::Context::upload_vertices(int count)
 {
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vSet) * count, vertices.arr, GL_STATIC_DRAW);
 }
+
 Vector2f GL::Context::normalize_position(Vector2i pos)
 {
 	return Vector2f(
 		 ((float) (pos.x * res_scale * 2) / (base_res.x * res_scale)) - 1.0,
 		-((float) (pos.y * res_scale * 2) / (base_res.y * res_scale)) + 1.0);
 }
+
 GL::vSet GL::Context::get_vset(Vector2i ipos, Vector2i itpos, Vector2i itsize, Vector2f scale)
 {
 	Vector2f pos = normalize_position(ipos);

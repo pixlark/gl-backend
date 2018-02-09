@@ -13,6 +13,7 @@ namespace GL {
 	struct vSet {
 		GLfloat verts[16];
 	};
+	
 	struct Context {
 		// Our stuff
 		List<vSet> vertices;
