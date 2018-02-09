@@ -6,13 +6,14 @@
 #include "backend.h"
 
 namespace Render {
+	struct Surface;
 	struct Renderer {
 		GL::Context context;
 		GL::Texture atlas;
-		bool changed;
+		int vertice_index;
 		int init(SDL_Window * window, char * atlas_path, Vector2i base_res, float res_scale);
 		void clear(RGBA color);
-		void render();
+		void render(Surface surface);
 		void swap(SDL_Window * window);
 		void end_frame();
 	};
@@ -20,7 +21,6 @@ namespace Render {
 		Vector2i pos;
 		Vector2i tex_coord;
 		Vector2i tex_size;
-		int vertice_index;
 		bool visible;
 		void init(Renderer * renderer, Vector2i pos, Vector2i tex_coord, Vector2i tex_size);
 		void set_position(Renderer * renderer, Vector2i pos);

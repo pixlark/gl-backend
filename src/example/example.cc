@@ -12,7 +12,7 @@ int walk_anim[] = {
 };
 
 int main()
-{	
+{
 	Vector2i base_res(256, 240);
 	float res_scale = 4.0;
 	
@@ -89,7 +89,7 @@ int main()
 		
 		// Rendering
 		renderer.clear(RGBA(0, 0, 0, 0xFF));
-		renderer.render();
+		renderer.render(surf);
 		renderer.swap(window);
 		renderer.end_frame();
 		
@@ -104,6 +104,5 @@ int main()
 			SDL_Delay(((1.0 / 60.0) - delta_time) * 1000);
 		}
 	}
-	
 	return 0;
 }
