@@ -1,0 +1,8 @@
+----------------------------------
+
+Figure out how to do rotations in OpenGL on a vSet basis. Should we
+pass origin and rotation to each vertice individually? That seems like
+a waste of space. Also, the shader should take into account resolution
+scale so that rotated pixels stay in the proper grid. Perhaps we
+should pass a uniform in to the shaders that notifies it of the
+resolution scale?
