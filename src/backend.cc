@@ -164,9 +164,9 @@ int GL::Context::init(SDL_Window * window, Texture * atlas, Vector2i base_res, f
 
 	return 0;
 }
-void GL::Context::upload_vertices()
+void GL::Context::upload_vertices(int count)
 {
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vSet) * vertices.len, vertices.arr, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vSet) * count, vertices.arr, GL_STATIC_DRAW);
 }
 Vector2f GL::Context::normalize_position(Vector2i pos)
 {
@@ -232,9 +232,9 @@ void GL::Context::clear(RGBA color)
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void GL::Context::render()
+void GL::Context::render(int count)
 {
-	for (int i = 0; i < vertices.len; i++) {
+	for (int i = 0; i < count; i++) {
 		glDrawElementsBaseVertex(
 			GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, i*4);
 	}

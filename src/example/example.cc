@@ -11,6 +11,30 @@ int walk_anim[] = {
 	1, 2, 3, 2,
 };
 
+struct Mario {
+	const float speed = 60;
+	// Positioning and Textures
+	Vector2f real_pos;
+	Vector2i screen_pos;
+	Vector2i tex_pos;
+	Vector2i tex_size;
+	// Flags
+	bool small;
+	bool visible;
+	// Animation
+	const float frame_length = 0.3;
+	float frame_timer;
+	int anim_frame;
+	void init()
+	{
+		real_pos   = Vector2f(0, 0);
+		screen_pos = Vector2i(0, 0);
+		small = false;
+		visible = true;
+		anim_frame = 0;
+	}
+};
+
 int main()
 {
 	Vector2i base_res(256, 240);
@@ -32,16 +56,9 @@ int main()
 
 		exe_path.dealloc();
 	}
-	
-	Render::Surface surf;
-	surf.init(&renderer, Vector2i(0, 0), Vector2i(0, 16), Vector2i(16, 32));
 
-	Vector2f    mario_pos(0, 0);
-	float       mario_speed  = 60;
-	bool        small_mario  = false;
-	int         anim_frame   = 0;
-	const float frame_length = 0.3;
-	float       frame_timer  = frame_length;
+	Mario mario;
+	mario.init();
 
 	uint32_t last_time = SDL_GetPerformanceCounter();
 	SDL_Event event;
@@ -54,44 +71,47 @@ int main()
 				break;
 			case SDL_MOUSEBUTTONDOWN: {
 				if (event.button.button == SDL_BUTTON_LEFT) {
-					small_mario = true;
+					mario.small = true;
 				} else if (event.button.button == SDL_BUTTON_RIGHT) {
-					surf.set_visibility(&renderer, false);
+					mario.visible = false;
 				}
 			} break;
 			case SDL_MOUSEBUTTONUP: {
 				if (event.button.button == SDL_BUTTON_LEFT) {
-					small_mario = false;
+					mario.small = false;
 				} else if (event.button.button == SDL_BUTTON_RIGHT) {
-					surf.set_visibility(&renderer, true);
+					mario.visible = true;
 				}
 			} break;
 			}
 		}
-		// Update
-		mario_pos = Vector2f(fmod(mario_pos.x + mario_speed * delta_time, base_res.x), base_res.y - surf.tex_size.y);
-		surf.set_position(&renderer, (Vector2i) mario_pos);
-		if (small_mario) {
-			surf.set_tex_coord(&renderer,
-				Vector2i(16 * walk_anim[anim_frame], 0),
-				Vector2i(16, 16));
+		// Texture
+		if (mario.small) {
+			mario.tex_pos  = Vector2i(16 * walk_anim[mario.anim_frame], 0);
+			mario.tex_size = Vector2i(16, 16);
 		} else {
-			surf.set_tex_coord(&renderer,
-				Vector2i(16 * walk_anim[anim_frame], 16),
-				Vector2i(16, 32));
+			mario.tex_pos  = Vector2i(16 * walk_anim[mario.anim_frame], 16);
+			mario.tex_size = Vector2i(16, 32);
 		}
-		frame_timer -= delta_time;
-		if (frame_timer <= 0) {
-			anim_frame++;
-			anim_frame %= 4;
-			frame_timer = frame_length;
+
+		// Position
+		mario.real_pos = Vector2f(fmod(mario.real_pos.x + mario.speed * delta_time, base_res.x), base_res.y - mario.tex_size.y);
+		mario.screen_pos = (Vector2i) mario.real_pos;
+
+		// Animation
+		mario.frame_timer -= delta_time;
+		if (mario.frame_timer <= 0) {
+			mario.anim_frame++;
+			mario.anim_frame %= 4;
+			mario.frame_timer = mario.frame_length;
 		}
 		
 		// Rendering
 		renderer.clear(RGBA(0, 0, 0, 0xFF));
-		renderer.render(surf);
+		if (mario.visible) {
+			renderer.render(mario.screen_pos, mario.tex_pos, mario.tex_size);
+		}
 		renderer.swap(window);
-		renderer.end_frame();
 		
 		// Manage framerate
 		{
@@ -101,7 +121,7 @@ int main()
 		}
 		if (delta_time < 1.0 / 60.0) {
 			// Lock to 60
-			//SDL_Delay(((1.0 / 60.0) - delta_time) * 1000);
+			SDL_Delay(((1.0 / 60.0) - delta_time) * 1000);
 		}
 	}
 	return 0;
