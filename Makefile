@@ -16,7 +16,8 @@ win_lib_dirs =-L"G:\.minlib\SDL2-2.0.7\x86_64-w64-mingw32\lib" -L"G:\.minlib\gle
 # TODO(pixlark): nix support
 win_comp_full=-c $(src) $(comp_opts) $(win_incl_dirs)
 win_link_full=-shared $(link_opts) $(obj) $(win_lib_dirs) $(dyn_libs)
-win_example_full=-o bin/example -std=c++11 src/example/example.cc $(win_incl_dirs) $(win_lib_dirs) -lSDL2 -lSDL2main -Lbin -lrender -Wno-write-strings
+win_example_full =-o bin/example  -std=c++11 src/example/example.cc  $(win_incl_dirs) $(win_lib_dirs) -lSDL2 -lSDL2main -Lbin -lrender -Wno-write-strings
+win_pallette_full=-o bin/pallette -std=c++11 src/example/pallette.cc $(win_incl_dirs) $(win_lib_dirs) -lSDL2 -lSDL2main -Lbin -lrender -Wno-write-strings
 
 win:
 	@echo Building DLL...
@@ -24,8 +25,9 @@ win:
 	g++ $(win_comp_full)
 	g++ $(win_link_full)
 	mv *.o obj
-	@echo Building Example...
+	@echo Building Examples...
 	g++ $(win_example_full)
+	g++ $(win_pallette_full)
 
 wing:
 	@echo Building Debug DLL...
@@ -33,5 +35,6 @@ wing:
 	g++ -g $(win_comp_full)
 	g++ -g $(win_link_full)
 	mv *.o obj
-	@echo Building Debug Example...
+	@echo Building Debug Examples...
 	g++ -g $(win_example_full)
+	g++ $(win_pallette_full)

@@ -50,3 +50,69 @@ Vector2i::operator Vector2f()
 {
 	return Vector2f((float) x, (float) y);
 }
+
+Vector2f &Vector2f::operator+=(Vector2f &r)
+{
+	x += r.x;
+	y += r.y;
+	return *this;
+}
+
+Vector2i &Vector2i::operator+=(Vector2i &r)
+{
+	x += r.x;
+	y += r.y;
+	return *this;
+}
+
+Vector2f Vector2f::operator+(Vector2f o)
+{
+	Vector2f ret = *this;
+	ret += o;
+	return ret;
+}
+
+Vector2i Vector2i::operator+(Vector2i o)
+{
+	Vector2i ret = *this;
+	ret += o;
+	return ret;
+}
+
+Vector2i &Vector2i::operator-=(Vector2i &r)
+{
+	x -= r.x;
+	y -= r.y;
+	return *this;
+}
+
+Vector2f &Vector2f::operator-=(Vector2f &r)
+{
+	x -= r.x;
+	y -= r.y;
+	return *this;
+}
+
+Vector2i Vector2i::operator-(Vector2i o)
+{
+	Vector2i ret = *this;
+	ret -= o;
+	return ret;
+}
+
+Vector2f Vector2f::operator-(Vector2f o)
+{
+	Vector2f ret = *this;
+	ret -= o;
+	return ret;
+}
+
+bool Vector2f::operator==(Vector2f o)
+{
+	return (x == o.x && y == o.y);
+}
+
+bool Vector2i::operator==(Vector2i o)
+{
+	return (x == o.x && y == o.y);
+}
