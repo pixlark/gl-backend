@@ -30,7 +30,11 @@ int main()
 
 	{
 		List<char> exe_path = get_exe_dir();
+#if defined(_WIN32) || defined(_WIN64)
 		exe_path.cat("..\\atlas.png", 13, 1);
+#else
+		exe_path.cat("../atlas.png", 13, 1);
+#endif
 		printf("Loading atlas from %s\n", exe_path.arr);
 	
 		Render::init(window, exe_path.arr, base_res, res_scale);

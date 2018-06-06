@@ -29,12 +29,17 @@ List<char> get_exe_dir()
 #else
 	// TODO(pixlark): Test this on nix
 	int len = readlink("/proc/self/exe", buffer, 511) + 1;
+	assert(len != -1);
 	buffer[len - 1] = '\0';
 #endif
 	os_path(buffer, len);
 	// TODO(pixlark): Get rid of this hacky string.h bullshit
 	//                and write an actual string builder
+#if defined(_WIN32) || defined(_WIN64)
 	char * s = strrchr(buffer, '\\');
+#else
+	char * s = strrchr(buffer, '/');
+#endif
 	*(s + 1) = '\0';
 	path.cat(buffer, strlen(buffer) + 1, 1);
 	free(buffer);

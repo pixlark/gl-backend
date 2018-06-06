@@ -40,7 +40,7 @@ struct Mario {
 int main()
 {
 	Vector2i base_res(256, 240);
-	float res_scale = 4.0;
+	float res_scale = 2.0;
 	
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_Window * window = SDL_CreateWindow("opengl backend test",
@@ -50,10 +50,17 @@ int main()
 
 	{
 		List<char> exe_path = get_exe_dir();
+#if defined(_WIN32) || defined(_WIN64)
 		exe_path.cat("..\\atlas.png", 13, 1);
+#else
+		exe_path.cat("../atlas.png", 13, 1);
+#endif
 		printf("Loading atlas from %s\n", exe_path.arr);
 	
-		Render::init(window, exe_path.arr, base_res, res_scale);
+		if (Render::init(window, exe_path.arr, base_res, res_scale)) {
+			fprintf(stderr, "Error initializing Render namespace\n");
+			return 1;
+		}
 
 		exe_path.dealloc();
 	}

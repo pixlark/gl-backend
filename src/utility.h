@@ -3,6 +3,9 @@
 
 #include <assert.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 //#define assert(condition) if(!condition) { fprintf(stderr, "Assertion Failed! %s:%d", __FILE__, __LINE__); exit(1); }
 
 struct Vector2f;
@@ -108,6 +111,7 @@ const
 template <typename T>
 void List<T>::push(T p)
 {
+	assert(allocated);
 	if (len >= len_max) {
 		_grow();
 	}

@@ -68,6 +68,7 @@ GLuint elements[] = {
 int GL::Context::init(SDL_Window * window, Texture * atlas, Vector2i base_res, float res_scale)
 {
 	// Our stuff
+	vertices.allocated = false;
 	vertices.alloc();
 	atlas_size = atlas->w;
 	this->base_res = base_res;
